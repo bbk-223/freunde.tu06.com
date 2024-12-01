@@ -1,0 +1,39 @@
+.logo-margin-top {
+ margin-top: -10px;
+}
+
+.menuButtonFixed {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+.navbar-hidden {
+    position: fixed;
+    bottom: -245px;
+}
+
+
+@keyframes move-menu-button {
+    100% {
+        bottom: -50px;
+    }
+}
+
+@keyframes navbar-moving {
+    100% {
+        bottom: 0px;
+    }
+}
+
+
+.menuButtonMove {
+    animation: move-menu-button;
+    animation-duration: 1s;
+}
+
+.navbar-move {
+    animation: navbar-moving;
+    animation-fill-mode: forwards;
+    animation-duration: 1s;
+}
