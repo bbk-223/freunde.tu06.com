@@ -1,0 +1,101 @@
+{% extends "base.html.twig" %}
+{% block title "Persische Freunde finden die Website Tu06.com سایت دوست یابی فارسی زبانان مقیم آلمان" %}
+
+{% block body %}
+<section class="fix-logo">
+    <div class="container">
+        <div class="row mt-2">
+            <div class="col-md-12 mt-4">
+                <form action="{{ path('app_main_gesucht') }}" method="POST">
+                    <div class="card">
+                        <div class="card-header card-title bg-danger">
+                          <strong>Suchen</strong>
+                        </div>
+                        <div class="card-body bg-light">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    {% if app.flashes('profile-information-updated') %}
+                                        <div class="alert alert-success">Profile has been updated.</div>
+                                    {% endif %}
+                                    <div class="form-group mt-1 text-info">
+                                        <label for="gender">Geschlecht</label>
+                                        <select class="form-select" id="gender" name="gender" aria-label="Default select example">
+                                            <option value="männlich">männlich</option>
+                                            <option value="weiblich">weiblich</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mt-1 text-info">
+                                        <label for="age">Alter (von bis)</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <select class="form-select" id="age" name="age1" aria-label="Default select example">
+                                                    {% for i in 0..90 %}
+                                                    <option {{ i == 25 ? 'selected' : '' }} value="{{i}}">{{i}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-select" id="age" name="age2" aria-label="Default select example">
+                                                    {% for i in 0..90 %}
+                                                    <option {{ i == 35 ? 'selected' : '' }} value="{{i}}">{{i}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mt-1 text-info">
+                                        <label for="city">Stadt</label>
+                                        <input type="text" name="city" id="city" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <button type="submit" class="btn btn-success">suchen</button>
+                            </div>
+
+                        </div>
+                    </div>  
+                </form>
+            </div>
+        </div>
+</section>
+
+
+<section class="fix-logo">
+    <div class="container mt-2">
+        <div class="card border-primary mt-2">
+            <div class="card-header bg-secondery">
+                <strong>Personen</strong>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <article id="searched">
+            <div class="row">
+                {% if app.flashes['result'] %}
+                {% for user in app.flashes['result'] %}
+                <div class="card h-100 text-center col-sm-6 col-md-4 col-lg-3 g-1">
+                        <img class="card-img-top my-home-col person-img" src="" alt="Profile Picture">
+                        <div class="card-body">
+                            <a href="{{ path('app_main_profile', {id: user.id}) }}">
+                            <div class="card-title mt-1 text-info">{{ user.name }}</div>
+                            </a>
+                        </div>
+                    <div class="card-footer">
+                        <p class="text-secondary">({{ user.birth|date("m/d/Y") }}, {{ user.city }})</p>
+                    </div>
+                </div>
+            {% endfor %}
+                {% endif %}
+            
+            {# <div class="d-flex justify-content-center mt-4">{{ pagerfanta(users) }}</div> #}
+            
+            </div>
+        </article>
+    </div>
+    </section>
+{% endblock %}

@@ -1,3 +1,104 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+/* Auth CSS */
+
+.auth-wrapper {
+    min-height: 92vh;
+}
+
+.auth-wrapper h1 {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #6c757d;
+    letter-spacing: 1px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.auth-wrapper .form-label {
+    color: #6c757d;
+}
+
+/* End Auth CSS */
+
+.tu06-logo {
+    position: relative;
+    top: 9px;
+    right: 140px;
+}
+
+@media (max-width: 767px) {
+    .tu06-logo{
+        right: 100px;
+    }
+}
+@media (max-width: 677px) {
+    .tu06-logo{
+        right: 70px;
+    }
+}
+@media (max-width: 567px) {
+    .tu06-logo{
+        right: 40px;
+    }
+}
+.messages{
+    color: white;
+}
+
+.nav-custom{
+    width: 98%;
+    margin: 7px auto 0px auto;
+  }
+.nav-custom img{
+    position: relative;
+    right: 12px;
+  }
+
+.site-nav-2{
+    margin: 0 auto;
+}
+
+.background-img{
+    background-image: url("../pictures/couple.jpg");
+    background-size: 100%;
+}
+
+.direction{
+    direction: rtl;
+}
+.direction>a{
+    color: violet;
+}
+
+.want-age{
+    position: relative;
+    left: 12px;
+}
+
+.person-img{
+        --s: 10px; /* control the size */
+        padding: var(--s);
+        border: calc(2*var(--s)) solid #0000;
+        outline: 1px solid #000;
+        outline-offset: calc(-1*var(--s));
+        background: conic-gradient(from 90deg at 1px 1px,#0000 25%,#000 0);
+
+}
+
+
+
+
+
+
+.fix-logo {
+    position:relative;
+    top: -140px;
+}
+
 .logo-margin-top {
  margin-top: -10px;
 }
@@ -16,7 +117,7 @@
 
 @keyframes move-menu-button {
     100% {
-        bottom: -50px;
+        left: -95px;
     }
 }
 

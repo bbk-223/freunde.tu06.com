@@ -1,16 +1,128 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title "Persische Freunde finden die Website Tu06.com سایت دوست یابی ایرانیان مقیم آلمان" %}
 
 {% block body %}
 
-<div class="example-wrapper">
-    <h1>Hello! ✅</h1>
+<section class="fix-logo">
+    {# <div class="container mt-2 mb-2">
+        @if (session('welcome'))
+            <div class="text-center alert alert-success">{{ session('welcome') }} Bitte vervollständigen Sie <a href="settings/profile-information">hier</a> Ihr Profil.</div>
+        @endif
+    </div> #}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/samyar/TestProjects/freunde.tu06.com/src/Controller/MainController.php</code></li>
-        <li>Your template at <code>/Users/samyar/TestProjects/freunde.tu06.com/templates/main/index.html.twig</code></li>
-    </ul>
+    <div class="container mt-2 mb-2">
+
+        <div class="card">
+            <div class="card-header card-title bg-success border-primary text-center h4">
+                <strong>به سایت دوست یابی فارسی زبانان مقیم آلمان خوش آمدید</strong>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container background-img">
+        <div class="row">
+            <div class="col-md-4 mt-5 mb-5">
+                {# <form style="margin-left: 10px" action="{{ path('searching') }}" method="POST"> #}
+                    <form style="margin-left: 10px" action="" method="POST"></form>
+                    <div class="card">
+                        <div class="card-header card-title bg-danger">
+                          <strong>Suchen</strong>
+                        </div>
+                        <div class="card-body bg-light">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <div class="form-group mt-1 text-info">
+                                        <label for="gender">Geschlecht</label>
+                                        <select class="form-select" id="gender" name="gender" aria-label="Default select example">
+                                            <option value="männlich">männlich</option>
+                                            <option value="weiblich">weiblich</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mt-1 text-info">
+                                        <label for="age">Alter (von bis)</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <select class="form-select" id="age" name="age1" aria-label="Default select example">
+                                                    {% for i in 0..90 %}
+                                                    <option {{ i == 25 ? 'selected' : '' }} value="{{i}}">{{i}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select class="form-select" id="age" name="age2" aria-label="Default select example">
+                                                    {% for i in 0..90 %}
+                                                    <option {{ i == 35 ? 'selected' : '' }} value="{{i}}">{{i}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-1 text-info">
+                                        <label for="city">Stadt</label>
+                                        <input type="text" name="city" id="city" class="form-control" aria-label="Default select example">
+                                    </div>
+                                    <div class="mt-3">
+                                        <button type="submit" class="btn btn-success">suchen</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </form>
+            </div>
+            <div class="col-md-8">
+                <div class="row mt-3" id="js-zone">
+                    {% for user_js in users_js %}
+                    <div style="display: {% if loop.index > 8 %} {{ 'none' }} {% else %} {{ 'inline' }} {% endif %}" class="text-center col-6 col-lg-4 col-xl-3 index-{{loop.index}}">
+                        <a href="profile/{{ user_js.id }}">
+                        <img width="180px" height="180px" src="{{user_js.profilePictureUrl()}}" alt="">
+                        <div style="color: red">{{ user_js.name }} ({{ user_js.birth|date("m/d/Y") }})</div>
+                        </a>
+                    </div>                       
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+
+        </div>
+</section>
+{% include('./partials/_searchBox.html.twig') %}
+<section class="fix-logo">
+<div class="container mt-2">
+    <div class="card border-primary mt-2">
+        <div class="card-header bg-secondery">
+            <strong>Personen</strong>
+        </div>
+    </div>
 </div>
+<div class="container">
+    <article id="searched">
+        <div class="row">
+        {% for user in users %}
+            <div class="card h-100 text-center col-sm-6 col-md-4 col-lg-3 g-1">
+                    <img class="card-img-top my-home-col person-img" src="" alt="Profile Picture">
+                    <div class="card-body">
+                        <a href="{{ path('app_main_profile', {id: user.id}) }}">
+                        <div class="card-title mt-1 text-info">{{ user.name }}</div>
+                        </a>
+                    </div>
+                <div class="card-footer">
+                    <p class="text-secondary">({{ user.birth|date("m/d/Y") }}, {{ user.city }})</p>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="d-flex justify-content-center mt-4">{{ pagerfanta(users) }}</div>
+        
+        </div>
+    </article>
+</div>
+</section>
+{% endblock %}
+
+{% block javascript %}
+    <script type="module" src="myjs/tu06/main.js"></script>
+    <script type="module" src="myjs/tu06/navButton.js"></script>
 {% endblock %}
