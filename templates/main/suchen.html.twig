@@ -1,5 +1,5 @@
 {% extends "base.html.twig" %}
-{% block title "Persische Freunde finden die Website Tu06.com سایت دوست یابی فارسی زبانان مقیم آلمان" %}
+{% block title "Iranian Freunde finden die Website Tu06.com سایت دوست یابی فارسی زبانان مقیم آلمان" %}
 
 {% block body %}
 <section class="fix-logo">
@@ -64,6 +64,8 @@
         </div>
 </section>
 
+{% include('./partials/_searchBox.html.twig') %}
+
 
 <section class="fix-logo">
     <div class="container mt-2">
@@ -98,6 +100,6 @@
 {% endblock %}
 
 
-{% block javascript %}
-    <script type="module" src="../myjs/tu06/navButton.js"></script>
+{% block javascripts %}
+    {{ encore_entry_script_tags('app_profile') }}
 {% endblock %}

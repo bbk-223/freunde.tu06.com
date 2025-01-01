@@ -1,5 +1,5 @@
 {% extends "base.html.twig" %}
-{% block title user.name ~ " Profil - Tu06.com" %}
+{% block title user.name ~ " Profil - Tu06.com سایت دوست یابی فارسی زبانان مقیم آلمان" %}
 {% block body %}
     
 <section class="mt-5 fix-logo">
@@ -86,8 +86,7 @@
     <div class="container">
         <div class="row mt-2">
             <div class="col-md-12 mt-4">
-                {# <form action="{{ route('searching') }}" method="POST"> #}
-                <form action="" method="POST">
+                <form action="{{ path('app_main_gesucht') }}" method="GET">
                     <div class="card">
                         <div class="card-header card-title bg-danger">
                           <strong>Suchen</strong>
@@ -145,6 +144,8 @@
         </div>
 </section>
 
+{% include('./partials/_searchBox.html.twig') %}
+
 
 <section class="fix-logo">
     <div class="container mt-2">
@@ -178,6 +179,6 @@
     </section>
 {% endblock body %}
 
-{% block javascript %}
-    <script type="module" defer src="/myjs/tu06/navButton.js"></script>
+{% block javascripts %}
+    {{ encore_entry_script_tags('app_profile') }}
 {% endblock %}

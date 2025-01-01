@@ -1,0 +1,48 @@
+.love-img{
+    width: 100%;
+}
+
+.person-img{
+    width: 250px;
+    height: 250px;
+}
+
+
+@keyframes toLeft {
+    0% {
+        right: 0;
+    }
+    100% {
+        right: 190px;
+    }
+}
+
+#to-left{
+    position: relative;
+    animation: toLeft;
+    animation-duration: 3s;
+    animation-timing-function:ease-out;
+}
+
+@keyframes toRight {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 190px;
+    }
+}
+#to-right{
+    position: relative;
+    animation: toRight;
+    animation-duration: 3s;
+    animation-timing-function:ease-out;
+}
+
+@media (max-width: 575px) {
+    .my-home-col {
+        position: relative;
+        left: 25%;
+    }
+    
+}
