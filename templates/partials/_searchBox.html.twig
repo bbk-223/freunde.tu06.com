@@ -2,50 +2,51 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                    <form action="{{ path('app_main_gesucht') }}" method="GET">                    <div class="card">
-                        <div class="card-body bg-light">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group mt-1 text-info">
-                                        <label for="gender">Geschlecht</label>
-                                        <select class="form-select" id="gender" name="gender" aria-label="Default select example">
-                                            <option value="männlich">männlich</option>
-                                            <option value="weiblich">weiblich</option>
-                                        </select>
+                    <form action="{{ path('app_main_gesucht') }}" method="GET">
+                        <div class="card">
+                            <div class="card-body bg-light">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group mt-1 text-info">
+                                            <label for="gender">Geschlecht</label>
+                                            <select class="form-select" id="gender" name="gender" aria-label="Default select example">
+                                                <option value="männlich">männlich</option>
+                                                <option value="weiblich">weiblich</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group mt-1 text-info">
-                                        <label for="age">Alter (von bis)</label>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <select class="form-select" id="age" name="age1" aria-label="Default select example">
-                                                    {% for i in 0..90 %}
-                                                    <option {{ i == 25 ? 'selected' : '' }} value="{{i}}">{{i}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <select class="form-select" id="age" name="age2" aria-label="Default select example">
-                                                    {% for i in 0..90 %}
-                                                    <option {{ i == 35 ? 'selected' : '' }} value="{{i}}">{{i}}</option>
-                                                    {% endfor %}
-                                                </select>
+                                    <div class="col-md-4">
+                                        <div class="form-group mt-1 text-info">
+                                            <label for="age">Alter (von bis)</label>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <select class="form-select" id="age" name="age1" aria-label="Default select example">
+                                                        {% for i in 0..90 %}
+                                                        <option {{ i == 25 ? 'selected' : '' }} value="{{i}}">{{i}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <select class="form-select" id="age" name="age2" aria-label="Default select example">
+                                                        {% for i in 0..90 %}
+                                                        <option {{ i == 35 ? 'selected' : '' }} value="{{i}}">{{i}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group mt-1 text-info">
-                                        <label for="city">Stadt</label>
-                                        <input type="text" name="city" id="city" class="form-control">
+                                    <div class="col-md-3">
+                                        <div class="form-group mt-1 text-info">
+                                            <label for="city">Stadt</label>
+                                            <input type="text" name="city" id="city" class="form-control">
+                                        </div>
                                     </div>
-                                </div>
 
-                            <div class="col-md-2 mt-4">
-                                <button type="submit" class="btn btn-success">suchen</button>
+                                <div class="col-md-2 mt-4">
+                                    <button type="submit" class="btn btn-success">suchen</button>
+                                </div>
                             </div>
-                        </div>
                         </div>
                     </div>  
                 </form>
