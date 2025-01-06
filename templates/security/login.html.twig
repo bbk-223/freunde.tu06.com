@@ -26,10 +26,13 @@
                     value="{{ csrf_token('authenticate') }}"
                 >
 
-                <div class="col-12">
-                    <button class="btn btn-lg btn-primary float-end" type="submit">
-                        Anmelden
-                    </button>
+                <div class="col-12 d-flex justify-content-between">
+                    <div class="text-center py-4 text-muted">
+                        Haben Sie kein Konto?
+                        <a href="{{ path('app_register') }}" class="text-muted font-weight-bold">Registrieren</a>
+                    </div>
+                    <button class="btn btn-outline-primary" type="submit">Anmelden</button>
+
                 </div>
             </form>
         </div>

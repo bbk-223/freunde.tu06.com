@@ -31,6 +31,11 @@
  
     <div class="fix-logo" style="height: 160px; overflow: hidden;" ><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M0.00,49.98 C203.16,304.43 494.35,-29.10 500.00,2.48 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: #08f;"></path></svg></div>
   </a>
+      {% for msg in app.flashes('success') %}
+        <div class="container fix-logo mt-2">
+          <div class="alert alert-primary text-center">{{ msg }}</div>
+        </div>
+      {% endfor %}
     {% block body %}{% endblock %}
           
           <button class="menuButtonFixed" id="menuButton">

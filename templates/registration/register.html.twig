@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Benutzer Registrieren - Tu06.com - صفحه ثبت نام کاربر سایت دوست یابی ایرانیان داخل آلمان{% endblock %}
 
 {% block body %}
     {% for flash_error in app.flashes('verify_email_error') %}
@@ -10,17 +10,23 @@
     <div class="container fix-logo">
         <div class="row">
             <div class="login-form bg-light mt-4 p-4">
-                <h1 class="h3 mb-3 font-weight-normal">Anmeldung</h1>
+                <h1 class="h3 mb-3 font-weight-normal">Registrieren</h1>
                 {{ form_errors(registrationForm) }}
 
                 {{ form_start(registrationForm) }}
+                    {{ form_row(registrationForm.name) }}
                     {{ form_row(registrationForm.email) }}
                     {{ form_row(registrationForm.plainPassword, {
                         label: 'Password'
                     }) }}
-                    {{ form_row(registrationForm.agreeTerms) }}
-
-                    <button type="submit" class="btn btn-outline-primary">Register</button>
+                    {# {{ form_row(registrationForm.agreeTerms) }} #}
+                    <div class="d-flex justify-content-between">
+                        <div class="text-center py-4 text-muted">
+                            Haben Sie ein Konto?
+                            <a href="{{ path('app_login') }}" class="text-muted font-weight-bold">Einloggen</a>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary">Registrieren</button>
+                    </div>
                 {{ form_end(registrationForm) }}
             </div>
         </div>
