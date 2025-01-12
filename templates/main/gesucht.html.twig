@@ -79,7 +79,7 @@
                 {% if app.flashes['result'] %}
                 {% for user in app.flashes['result'] %}
                 <div class="card h-100 text-center col-sm-6 col-md-4 col-lg-3 g-1">
-                        <img class="card-img-top my-home-col person-img" src="" alt="Profile Picture">
+                        <img class="card-img-top my-home-col person-img" src="{{user.profilePictureUrl()}}" alt="Profile Picture">
                         <div class="card-body">
                             <a href="{{ path('app_main_profile', {id: user.id}) }}">
                             <div class="card-title mt-1 text-info">{{ user.name }}</div>
@@ -98,4 +98,13 @@
         </article>
     </div>
     </section>
+{% endblock %}
+
+
+{% block stylesheets %}
+{{ encore_entry_link_tags('app_profile') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app_profile') }}
 {% endblock %}

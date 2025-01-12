@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -35,6 +36,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'وارد کردن فیلد نام اجباری می باشد')]
     private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -278,7 +280,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function profilePictureUrl() : string {
-        return '';
+        $filesystem = new Filesystem();
+        if($this->profile_picture && $filesystem->exists($this->profile_picture)){
+            return 'http://localhost:8000/'.$this->profile_picture;
+        }elseif($this->profile_picture && $this->profile_picture == 'test'){
+            return "https://source.unsplash.com/500x500?face-" . rand(1, 1000);
+        }else{
+            return 'http://localhost:8000/icon/150x150.png';
+        }
     }
 
     public function isVerified(): ?bool

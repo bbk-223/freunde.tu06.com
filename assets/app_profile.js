@@ -8,6 +8,8 @@ import './bootstrap.js';
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/main.css';
+import './styles/home.css';
+import './styles/edit_profile_picture.css';
 import navButton from './myjs/tu06/nav_button.js';
 import fixedNavbar from './myjs/tu06/fixed_navbar.js';
 

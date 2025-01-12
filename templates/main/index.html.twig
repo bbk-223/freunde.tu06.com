@@ -78,7 +78,7 @@
                     <div style="display: {% if loop.index > 8 %} {{ 'none' }} {% else %} {{ 'inline' }} {% endif %}" class="text-center col-6 col-lg-4 col-xl-3 index-{{loop.index}}">
                         <a href="profile/{{ user_js.id }}">
                         <img width="180px" height="180px" src="{{user_js.profilePictureUrl()}}" alt="">
-                        <div style="color: red">{{ user_js.name }} ({{ user_js.birth|date("m/d/Y") }})</div>
+                        <div style="color: red">{{ user_js.name }} ({{ (date().diff(date(user_js.birth)).y != 0) ? date().diff(date(user_js.birth)).y }})</div>
                         </a>
                     </div>                       
                     {% endfor %}
@@ -103,14 +103,20 @@
         <div class="row">
         {% for user in users %}
             <div class="card h-100 text-center col-sm-6 col-md-4 col-lg-3 g-1">
-                    <img class="card-img-top my-home-col person-img" src="" alt="Profile Picture">
+                    <img class="card-img-top my-home-col person-img" src="{{user.profilePictureUrl()}}" alt="Profile Picture">
                     <div class="card-body">
                         <a href="{{ path('app_main_profile', {id: user.id}) }}">
                         <div class="card-title mt-1 text-info">{{ user.name }}</div>
                         </a>
                     </div>
                 <div class="card-footer">
-                    <p class="text-secondary">({{ user.birth|date("m/d/Y") }}, {{ user.city }})</p>
+                    <p class="text-secondary">
+                        {% if date().diff(date(user.birth)).y != 0 and user.city is defined %}
+                            ({{ (date().diff(date(user.birth)).y != 0) ? date().diff(date(user.birth)).y }}, {{ user.city }})  
+                        {% else %}
+                            <br>
+                        {% endif %}
+                    </p>
                 </div>
             </div>
         {% endfor %}

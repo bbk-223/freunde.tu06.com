@@ -3,12 +3,18 @@
 
 {% block body %}
     
-<main class="py-5">
+<main class="py-5 fix-logo">
     <div class="container">
       <div class="row">
-        {% include "../partials/_sidenav.html.twig" %}
+        {% include "./partials/_sidenav.html.twig" %}
 
-        <div class="col-md-9">
+        <div class="col-lg-9">
+            {% if errors is defined %}
+                {% for error in errors %}
+                    <div class="alert alert-warning text-center">{{ error.message }}</div>
+                {% endfor %}
+            {% endif %}
+
             <form action="{{ path('app_update_profile') }}" method="POST" enctype="multipart/form-data">
               <div class="card">
                 <div class="card-header card-title">
@@ -22,41 +28,32 @@
                         @endif #}
                       <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" name="name" value="{{ app.user.name }}" id="name" class="form-control @error('name') is-invalid @enderror">
-                        @error('name')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <input type="text" name="name" value="{{ app.user.name }}" id="name" class="form-control">
                       </div>
                       <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" name="email" value="{{ old('email', $user->email) }}" id="email" class="form-control @error('email') is-invalid @enderror">
-                        @error('email')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <input type="email" name="email" value="{{ app.user.email }}" id="email" class="form-control">
                       </div>
 
                       <div class="form-group mt-1">
                         <label for="gender">Geschlecht</label>
                         <select class="form-select" id="gender" name="gender" aria-label="Default select example">
-                            <option {{ $user->gender == 'männlich' ? 'selected' : '' }} value="männlich">männlich</option>
-                            <option {{ $user->gender == 'weiblich' ? 'selected' : '' }} value="weiblich">weiblich</option>
+                            <option {{ app.user.gender == 'männlich' ? 'selected' : '' }} value="männlich">männlich</option>
+                            <option {{ app.user.gender == 'weiblich' ? 'selected' : '' }} value="weiblich">weiblich</option>
                         </select>
                       </div>
 
                       <div class="form-group mt-1">
                         <label for="birth">Geburtsdatum</label>
-                        <input type="date" name="birth" value="{{ old('birth', $user->birth) }}" id="birth" class="form-control @error('email') is-invalid @enderror">
-                        @error('birth')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <input type="datetime" name="birth" value="{{ app.user.birth|date('d-m-Y') }}" id="birth" class="form-control">
                       </div>
 
                       <div class="form-group mt-1">
                         <label for="relationship">Beziehung</label>
                         <select class="form-select" id="relationship" name="relationship" aria-label="Default select example">
-                            <option {{ $user->relationship == 'single' ? 'selected' : '' }} value="single">Single</option>
-                            <option {{ $user->relationship == 'verheiratet' ? 'selected' : '' }} value="verheiratet">Verheiratet</option>
-                            <option {{ $user->relationship == 'geschieden' ? 'selected' : '' }} value="geschieden">Geschieden</option>
+                            <option {{ app.user.relationship == 'single' ? 'selected' : '' }} value="single">Single</option>
+                            <option {{ app.user.relationship == 'verheiratet' ? 'selected' : '' }} value="verheiratet">Verheiratet</option>
+                            <option {{ app.user.relationship == 'geschieden' ? 'selected' : '' }} value="geschieden">Geschieden</option>
                         </select>
                       </div>
 
@@ -67,31 +64,31 @@
 
                       <div class="form-group">
                         <label for="state">Bundesland</label>
-                        <input type="text" name="state" value="{{ old('state', $user->state) }}" id="state" class="form-control">
+                        <input type="text" name="state" value="{{ app.user.state }}" id="state" class="form-control">
                       </div>
 
                       <div class="form-group">
                         <label for="city">Stadt</label>
-                        <input type="text" name="city" value="{{ old('city', $user->city) }}" id="city" class="form-control">
+                        <input type="text" name="city" value="{{ app.user.city }}" id="city" class="form-control">
                       </div>
 
                       <div class="form-group mt-1">
                         <label for="">Ich suche nach (Alter)</label>
                         <div class="row want-age">
                         von
-                        <div class="col-md-4">
+                        <div class="col-4">
                         <select class="form-select" id="start_want_age" name="start_want_age" aria-label="Default select example">
-                            @for ($i = 18; $i < 90; $i++)
-                            <option {{ $user->start_want_age == "$i" ? 'selected' : '' }} value="{{$i}}">{{$i}}</option>
-                            @endfor
+                            {% for i in 18..90 %}
+                            <option {{ app.user.startwantage == i ? 'selected' : '' }} value="{{i}}">{{i}}</option>
+                            {% endfor %}
                         </select>
                         </div>
                         bis
-                        <div class="col-md-4">
+                        <div class="col-4">
                         <select class="form-select" id="end_want_age" name="end_want_age" aria-label="Default select example">
-                            @for ($i = 18; $i < 90; $i++)
-                            <option {{ $user->end_want_age == "$i" ? 'selected' : '' }} value="{{$i}}">{{$i}}</option>
-                            @endfor
+                            {% for i in 18..90 %}
+                            <option {{ app.user.endwantage == i ? 'selected' : '' }} value="{{i}}">{{i}}</option>
+                            {% endfor %}
                         </select>
                         </div>
                       </div>
@@ -99,30 +96,29 @@
 
                       <div class="form-group">
                         <label for="favorites">Hobbys</label>
-                        <textarea name="favorites" id="favorites" rows="3" class="form-control">{{ old('favorites', $user->favorites) }}</textarea>                      </div>
+                        <textarea name="favorites" id="favorites" rows="3" class="form-control">{{ app.user.favorites }}</textarea>                      </div>
                     </div>
 
-                    <div class="offset-md-1 col-md-3">
-                        <div class="form-group">
-                          <label for="bio">Profilbild</label>
-                          <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <div class="fileinput-new img-thumbnail" style="width: 150px; height: 150px;">
-                              <img src="{{ $user->profilePictureUrl() }}" alt="..." style="width: 150px; height: 150px;">
-                            </div>
-                            <div class="fileinput-preview fileinput-exists img-thumbnail"
-                              style="max-width: 150px; max-height: 150px;"></div>
-                            <div class="mt-2">
-                              <span class="btn btn-outline-secondary btn-file"><span class="fileinput-new">Bild auswählen
-                                </span><span class="fileinput-exists">Ändern</span><input type="file"
-                                  name="profile_picture" accept="image/*"></span>
-                              <a href="#" class="btn btn-outline-secondary fileinput-exists"
-                                data-dismiss="fileinput">Entfernen</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+					<div class="col-lg-3">
+						<div class="bg-secondary-soft px-4 py-5 rounded">
+							<div class="row g-3">
+                <img src="{{ app.user.profilePictureUrl() }}" alt="..." style="width: 150px; height: 150px;" />
+								<div class="text-center">
+									<!-- Image upload -->
+									<div class="square position-relative display-2 mb-3">
+										<i class="fas fa-fw fa-user position-absolute top-50 start-50 translate-middle text-secondary"></i>
+									</div>
+									<!-- Button -->
+									<input type="file" id="customFile" name="profile_picture" hidden="">
+									<label class="btn btn-success-soft btn-block" for="customFile">Upload</label>
+									<button type="button" class="btn btn-danger-soft mt-2">Remove</button>
+									<!-- Content -->
+									<p class="text-muted mt-3 mb-0"><span class="me-1">Note:</span>Minimum size 300px x 300px</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
                   <div class="card-footer">
                     <div class="row">
                       <div class="col-md-8">
@@ -141,4 +137,12 @@
       </div>
 </main>
 
+{% endblock %}
+
+{% block stylesheets %}
+{{ encore_entry_link_tags('app_profile') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app_profile') }}
 {% endblock %}

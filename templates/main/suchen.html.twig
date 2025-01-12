@@ -80,15 +80,20 @@
             <div class="row">
             {% for user in users %}
                 <div class="card h-100 text-center col-sm-6 col-md-4 col-lg-3 g-1">
-                        <img class="card-img-top my-home-col person-img" src="" alt="Profile Picture">
+                        <img class="card-img-top my-home-col person-img" src="{{user.profilePictureUrl()}}" alt="Profile Picture">
                         <div class="card-body">
                             <a href="{{ path('app_main_profile', {id: user.id}) }}">
                             <div class="card-title mt-1 text-info">{{ user.name }}</div>
                             </a>
                         </div>
                     <div class="card-footer">
-                        <p class="text-secondary">({{ user.birth|date("m/d/Y") }}, {{ user.city }})</p>
-                    </div>
+                        <p class="text-secondary">
+                            {% if date().diff(date(user.birth)).y != 0 and user.city is defined %}
+                                ({{ (date().diff(date(user.birth)).y != 0) ? date().diff(date(user.birth)).y }}, {{ user.city }})  
+                            {% else %}
+                                <br>
+                            {% endif %}
+                        </p>                    </div>
                 </div>
             {% endfor %}
             <div class="d-flex justify-content-center mt-4">{{ pagerfanta(users) }}</div>
@@ -99,6 +104,9 @@
     </section>
 {% endblock %}
 
+{% block stylesheets %}
+{{ encore_entry_link_tags('app_profile') }}
+{% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('app_profile') }}

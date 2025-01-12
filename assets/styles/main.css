@@ -80,6 +80,7 @@ body{
 }
 
 .person-img{
+
         --s: 10px; /* control the size */
         padding: var(--s);
         border: calc(2*var(--s)) solid #0000;
